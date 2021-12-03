@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="description" content="Rock-paper-scissors game with alpinejs & tailwind">
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   
@@ -10,10 +11,12 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <link rel="stylesheet" href="./build/tailwind.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" onload="this.onload=null;this.removeAttribute('media');"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
   <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: #71b6ff; }
@@ -25,8 +28,8 @@
 </head>
 <body>
 
-  <div x-data="game()" class="flex flex-col p-7 bg-gradient-radial font-barlow-semi-condensed from-outer-radial min-h-screen text-white to-inner-radial">
-    <header class="mb-20 border-2 border-gray-400 flex justify-between items-center p-2 rounded-xl">
+  <div x-data="game()" class="fixed inset-0 flex flex-col p-7 bg-gradient-radial font-barlow-semi-condensed from-outer-radial min-h-screen text-white to-inner-radial">
+    <header class="mb-5 border-2 border-gray-400 flex justify-between items-center p-2 rounded-xl">
       <div class="px-3 pt-1">
         <img src="images/logo.svg" alt="logo" class="h-16">
       </div>
@@ -60,44 +63,52 @@
 
       <div x-cloak x-show="isPicked">
         <div class="flex justify-between">
-          <div class="flex flex-col items-center w-1/2">
-            <div 
-              class="bg-gradient-to-b p-3 rounded-full"
-              :class="{
-                'from-red-500 to-red-400' : pickedOption == 'rock', 
-                'from-yellow-500 to-yellow-400' : pickedOption == 'scissors', 
-                'from-blue-500 to-blue-400' : pickedOption == 'paper'
-              }"  
-            >
-              <div class="bg-white grid h-24 place-items-center rounded-full w-24 col-start-1 col-end-3">
-                <img x-show="pickedOption == 'rock'" src="images/icon-rock.svg" alt="rock icon">
-                <img x-show="pickedOption == 'paper'" src="images/icon-paper.svg" alt="paper icon">
-                <img x-show="pickedOption == 'scissors'" src="images/icon-scissors.svg" alt="scissors icon">
+          <div class="relative flex flex-col items-center w-1/2">
+            <div class="bg-opacity-5 bg-white p-12 rounded-full">
+              <div class="bg-opacity-5 bg-white p-10 rounded-full">
+                <div 
+                  class="bg-gradient-to-b p-3 rounded-full"
+                  :class="{
+                    'from-red-500 to-red-400' : pickedOption == 'rock', 
+                    'from-yellow-500 to-yellow-400' : pickedOption == 'scissors', 
+                    'from-blue-500 to-blue-400' : pickedOption == 'paper'
+                  }"  
+                >
+                  <div class="bg-white grid h-24 place-items-center rounded-full w-24 col-start-1 col-end-3">
+                    <img x-show="pickedOption == 'rock'" src="images/icon-rock.svg" alt="rock icon">
+                    <img x-show="pickedOption == 'paper'" src="images/icon-paper.svg" alt="paper icon">
+                    <img x-show="pickedOption == 'scissors'" src="images/icon-scissors.svg" alt="scissors icon">
+                  </div>
+                </div>
               </div>
             </div>
-            <h1 class="uppercase mt-5">You picked</h1>
+            <h1 class="bottom-8 absolute mt-5 uppercase">You picked</h1>
           </div>
-          <div class="flex flex-col items-center w-1/2">
-            <div 
-              class="bg-gradient-to-b from-red-500 p-3 rounded-full to-red-400" 
-              :class="{
-                'from-red-500 to-red-400' : housePickedOption == 'rock', 
-                'from-yellow-500 to-yellow-400' : housePickedOption == 'scissors', 
-                'from-blue-500 to-blue-400' : housePickedOption == 'paper'
-              }">
-              <div class="bg-white grid h-24 place-items-center rounded-full w-24 col-start-1 col-end-3">
-                <img x-show="housePickedOption == 'rock'" src="images/icon-rock.svg" alt="rock icon">
-                <img x-show="housePickedOption == 'paper'" src="images/icon-paper.svg" alt="paper icon">
-                <img x-show="housePickedOption == 'scissors'" src="images/icon-scissors.svg" alt="scissors icon">
+          <div class="relative flex flex-col items-center w-1/2">
+            <div class="p-12 rounded-full">
+              <div class="p-10 rounded-full">
+                <div 
+                  class="bg-gradient-to-b from-red-500 p-3 rounded-full to-red-400" 
+                  :class="{
+                    'from-red-500 to-red-400' : housePickedOption == 'rock', 
+                    'from-yellow-500 to-yellow-400' : housePickedOption == 'scissors', 
+                    'from-blue-500 to-blue-400' : housePickedOption == 'paper'
+                  }">
+                  <div class="bg-white grid h-24 place-items-center rounded-full w-24 col-start-1 col-end-3">
+                    <img x-show="housePickedOption == 'rock'" src="images/icon-rock.svg" alt="rock icon">
+                    <img x-show="housePickedOption == 'paper'" src="images/icon-paper.svg" alt="paper icon">
+                    <img x-show="housePickedOption == 'scissors'" src="images/icon-scissors.svg" alt="scissors icon">
+                  </div>
+                </div>
               </div>
             </div>
-            <h1 class="uppercase mt-5">The House picked</h1>
+            <h1 class="bottom-8 absolute mt-5 uppercase">The House picked</h1>
           </div>
         </div>
       </div>
 
       <div x-cloak x-show="result" class="flex flex-col items-center">
-        <h1 x-text="result" class="font-bold mb-5 mt-20 text-5xl text-center tracking-widest uppercase"></h1>
+        <h1 x-text="result" class="font-bold mb-5 mt-5 text-5xl text-center tracking-widest uppercase"></h1>
         <button @click="restart()" class="w-2/3 bg-white font-bold px-10 py-3 rounded-xl text-gray-500 text-lg tracking-widest uppercase">Play Again</button>
       </div>
 
@@ -105,7 +116,7 @@
         <button @click="openModal = true" class="border border-gray-400 px-10 py-2.5 rounded-xl text-lg tracking-widest uppercase">Rules</button>
       </div>
 
-      <div x-cloak x-show="openModal" class="absolute bg-white flex flex-col inset-0 justify-between px-10 py-20">
+      <div x-cloak x-show="openModal" class="fixed bg-white flex flex-col inset-0 justify-between px-10 py-20">
         <h1 class="font-bold text-4xl text-center text-gray-600 uppercase">Rules</h1>
         <img src="images/image-rules.svg" alt="image of Rules">
         <button class="flex justify-center">
