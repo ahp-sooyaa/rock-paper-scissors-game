@@ -30,52 +30,52 @@
 <body>
 
   <div x-data="game()" class="flex flex-col p-7 min-h-screen text-white font-barlow-semi-condensed bg-gradient-radial from-outer-radial to-inner-radial">
-      <header class="mb-5 border-2 border-gray-400 flex justify-between items-center p-2 rounded-xl">
+      <header class="lg:w-1/2 lg:mx-auto mb-5 border-2 border-gray-400 flex justify-between items-center p-2 rounded-xl">
         <div class="px-3 pt-1">
-          <img src="images/logo.svg" alt="logo" class="h-16">
+          <img src="images/logo.svg" alt="logo" class="h-16 lg:h-28">
         </div>
 
-        <div class="bg-white px-5 py-3 rounded-lg text-center text-gray-700">
-          <h1 class="text-xs tracking-wider uppercase">Score</h1>
-          <span class="text-4xl" x-text="score"></span>
+        <div class="bg-white px-5 py-3 lg:px-10 rounded-lg text-center text-gray-700">
+          <h1 class="text-xs lg:text-lg tracking-widest uppercase text-blue-500">Score</h1>
+          <span class="text-4xl lg:text-6xl" x-text="score"></span>
         </div>
       </header>
 
-      <main class="flex flex-col flex-1">
-        <div x-show="! isPicked" class="grid grid-cols-2 place-items-center gap-y-7 mt-20">
-          <div class="bg-gradient-to-b from-red-500 p-3 rounded-full to-red-400">
-            <div class="bg-white grid h-24 w-24 place-items-center rounded-full">
-              <img @click="pickOption('rock')" src="images/icon-rock.svg" alt="rock icon">
+      <main class="lg:px-14 lg:mx-auto flex flex-col flex-1 justify-center">
+        <div x-show="! isPicked" class="grid grid-cols-2 place-items-center gap-y-7 lg:gap-x-20 lg:gap-y-10 mt-20">
+          <div @click="pickOption('rock')" class="cursor-pointer bg-gradient-to-b from-red-500 p-3 lg:p-5 rounded-full to-red-400 border-b-4 border-red-600">
+            <div class="bg-white grid h-24 w-24 lg:h-28 lg:w-28 place-items-center rounded-full border-t-4">
+              <img src="images/icon-rock.svg" alt="rock icon">
             </div>
           </div>
 
-          <div class="bg-gradient-to-b from-blue-500 p-3 rounded-full to-blue-400">
-            <div class="bg-white grid h-24 w-24 place-items-center rounded-full">
-              <img @click="pickOption('paper')" src="images/icon-paper.svg" alt="paper icon">
+          <div @click="pickOption('paper')" class="cursor-pointer bg-gradient-to-b from-blue-500 p-3 lg:p-5 rounded-full to-blue-400 border-b-4 border-blue-600">
+            <div class="bg-white grid h-24 w-24 lg:h-28 lg:w-28 place-items-center rounded-full border-t-4">
+              <img src="images/icon-paper.svg" alt="paper icon">
             </div>
           </div>
 
-          <div class="bg-gradient-to-b from-yellow-500 p-3 rounded-full to-yellow-400 col-start-1 col-end-3">
-            <div class="bg-white grid h-24 w-24 place-items-center rounded-full">
-              <img @click="pickOption('scissors')" src="images/icon-scissors.svg" alt="scissors icon">
+          <div @click="pickOption('scissors')" class="cursor-pointer bg-gradient-to-b from-yellow-500 p-3 lg:p-5 rounded-full to-yellow-400 col-start-1 col-end-3 border-b-4 border-yellow-600">
+            <div class="bg-white grid h-24 w-24 lg:h-28 lg:w-28 place-items-center rounded-full border-t-4">
+              <img src="images/icon-scissors.svg" alt="scissors icon">
             </div>
           </div>
         </div>
 
         <div x-cloak x-show="isPicked">
-          <div class="flex justify-between">
-            <div class="relative flex flex-col items-center w-1/2">
-              <div class="bg-opacity-5 bg-white p-12 rounded-full">
-                <div class="bg-opacity-5 bg-white p-10 rounded-full">
+          <div class="grid grid-cols-2 lg:grid-cols-5 place-items-center gap-x-10">
+            <div class="relative flex flex-col items-center col-start-2">
+              <div class="bg-white p-12 rounded-full" :class="result == 'You Win' ? 'bg-opacity-5' : 'bg-opacity-0'">
+                <div class="bg-white p-10 rounded-full" :class="result == 'You Win' ? 'bg-opacity-5' : 'bg-opacity-0'">
                   <div 
-                    class="bg-gradient-to-b p-3 rounded-full"
+                    class="bg-gradient-to-b p-3 lg:p-6 rounded-full border-b-4"
                     :class="{
-                      'from-red-500 to-red-400' : pickedOption == 'rock', 
-                      'from-yellow-500 to-yellow-400' : pickedOption == 'scissors', 
-                      'from-blue-500 to-blue-400' : pickedOption == 'paper'
+                      'from-red-500 to-red-400 border-red-500' : pickedOption == 'rock', 
+                      'from-yellow-500 to-yellow-400 border-yellow-500' : pickedOption == 'scissors', 
+                      'from-blue-500 to-blue-400 border-blue-500' : pickedOption == 'paper'
                     }"  
                   >
-                    <div class="bg-white grid h-24 place-items-center rounded-full w-24 col-start-1 col-end-3">
+                    <div class="bg-white grid h-24 w-24 lg:h-32 lg:w-32 place-items-center rounded-full col-start-1 col-end-3 border-t-4">
                       <img x-show="pickedOption == 'rock'" src="images/icon-rock.svg" alt="rock icon">
                       <img x-show="pickedOption == 'paper'" src="images/icon-paper.svg" alt="paper icon">
                       <img x-show="pickedOption == 'scissors'" src="images/icon-scissors.svg" alt="scissors icon">
@@ -83,19 +83,25 @@
                   </div>
                 </div>
               </div>
-              <h1 class="bottom-8 absolute mt-5 uppercase">You picked</h1>
+              <h1 class="bottom-8 lg:top-0 absolute mt-5 uppercase lg:text-2xl">You picked</h1>
             </div>
-            <div class="overflow-hidden relative flex flex-col items-center w-1/2">
-              <div class="p-12 rounded-full">
-                <div class="p-10 rounded-full">
+
+            <div x-cloak x-show="result" class="mb-10 flex flex-col items-center">
+              <h1 x-text="result" class="min-w-max font-bold mb-5 mt-5 text-5xl text-center tracking-widest uppercase"></h1>
+              <button @click="restart()" class="w-2/3 bg-white font-bold px-10 py-3 rounded-xl text-gray-500 text-lg tracking-widest uppercase min-w-max">Play Again</button>
+            </div>
+
+            <div class="overflow-hidden relative flex flex-col items-center">
+              <div class="bg-white p-12 rounded-full" :class="result == 'You Lose' ? 'bg-opacity-5' : 'bg-opacity-0'">
+                <div class="bg-white p-10 rounded-full" :class="result == 'You Lose' ? 'bg-opacity-5' : 'bg-opacity-0'">
                   <div 
-                    class="bg-gradient-to-b from-red-500 p-3 rounded-full to-red-400" 
+                    class="bg-gradient-to-b from-red-500 p-3 lg:p-6 rounded-full to-red-400 border-b-4" 
                     :class="{
-                      'from-red-500 to-red-400' : housePickedOption == 'rock', 
-                      'from-yellow-500 to-yellow-400' : housePickedOption == 'scissors', 
-                      'from-blue-500 to-blue-400' : housePickedOption == 'paper'
+                      'from-red-500 to-red-400 border-red-500' : housePickedOption == 'rock', 
+                      'from-yellow-500 to-yellow-400 border-yellow-500' : housePickedOption == 'scissors', 
+                      'from-blue-500 to-blue-400 border-blue-500' : housePickedOption == 'paper'
                     }">
-                    <div class="bg-white grid h-24 place-items-center rounded-full w-24 col-start-1 col-end-3">
+                    <div class="bg-white grid h-24 w-24 lg:h-32 lg:w-32 place-items-center rounded-full col-start-1 col-end-3 border-t-4">
                       <img x-show="housePickedOption == 'rock'" src="images/icon-rock.svg" alt="rock icon">
                       <img x-show="housePickedOption == 'paper'" src="images/icon-paper.svg" alt="paper icon">
                       <img x-show="housePickedOption == 'scissors'" src="images/icon-scissors.svg" alt="scissors icon">
@@ -103,28 +109,37 @@
                   </div>
                 </div>
               </div>
-              <h1 class="bottom-8 absolute mt-5 uppercase">The House picked</h1>
+              <h1 class="bottom-8 lg:top-0 absolute mt-5 uppercase lg:text-2xl">The House picked</h1>
             </div>
+            
           </div>
         </div>
 
-        <div x-cloak x-show="result" class="mb-10 flex flex-col items-center">
-          <h1 x-text="result" class="font-bold mb-5 mt-5 text-5xl text-center tracking-widest uppercase"></h1>
-          <button @click="restart()" class="w-2/3 bg-white font-bold px-10 py-3 rounded-xl text-gray-500 text-lg tracking-widest uppercase">Play Again</button>
-        </div>
-
-        <div class="flex justify-center mt-auto mb-10">
+        <div class="flex lg:hidden justify-center mt-auto mb-10">
           <button @click="openModal = true" class="border border-gray-400 px-10 py-2.5 rounded-xl text-lg tracking-widest uppercase">Rules</button>
         </div>
 
-        <div x-cloak x-show="openModal" class="fixed bg-white flex flex-col inset-0 justify-between px-10 py-20">
-          <h1 class="font-bold text-4xl text-center text-gray-600 uppercase">Rules</h1>
-          <img src="images/image-rules.svg" alt="image of Rules">
-          <button class="flex justify-center">
-            <img @click="openModal = false" src="images/icon-close.svg" alt="close icon" class="w-6">
-          </button>
+        <div x-cloak x-show="openModal" class="fixed inset-0 grid place-items-center">
+          <div class="rounded-lg bg-white h-full w-full lg:h-1/2 lg:w-1/3 flex flex-col justify-between lg:justify-center items-center px-10 py-20">
+            <div class="lg:flex lg:justify-between w-full mb-10">
+              <h1 class="font-bold text-4xl text-center text-gray-600 uppercase">Rules</h1>
+              <button class="hidden lg:block">
+                <img @click="openModal = false" src="images/icon-close.svg" alt="close icon" class="w-6">
+              </button>
+            </div>
+
+            <img src="images/image-rules.svg" alt="image of Rules">
+
+            <button class="block md:hidden">
+              <img @click="openModal = false" src="images/icon-close.svg" alt="close icon" class="w-6">
+            </button>
+          </div>
         </div>
       </main>
+
+      <div class="hidden lg:block mt-auto mb-10 text-right">
+        <button @click="openModal = true" class="border border-gray-400 px-10 py-2.5 rounded-xl text-lg tracking-widest uppercase">Rules</button>
+      </div>
 
       <footer class="attribution">
         Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
